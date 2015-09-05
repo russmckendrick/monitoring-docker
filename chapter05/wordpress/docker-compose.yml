@@ -1,0 +1,19 @@
+mysql:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: "password"
+wordpress1:
+  image: wordpress
+  links:
+    - "mysql:mysql"
+wordpress2:
+  image: wordpress
+  links:
+    - "mysql:mysql"
+haproxy:
+  image: tutum/haproxy
+  ports: 
+    - "80:80"
+  links:
+    - "wordpress1:wordpress1"
+    - "wordpress2:wordpress2"

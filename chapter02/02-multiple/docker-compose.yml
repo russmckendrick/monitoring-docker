@@ -1,0 +1,6 @@
+web:
+  image: russmckendrick/nginx-php
+  volumes:
+    - ./web:/var/www/html/
+  ports:
+    - 80

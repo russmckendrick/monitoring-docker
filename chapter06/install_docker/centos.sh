@@ -1,7 +1,5 @@
 echo "=> Installing docker-engine ..."
 curl -sSL https://get.docker.com/ | sh  > /dev/null 2>&1
-echo "=> Configuring vagrant user ..."
-sudo usermod -aG docker vagrant
 echo "=> Starting docker-engine ..."
 sudo systemctl enable docker > /dev/null 2>&1
 sudo systemctl start docker > /dev/null 2>&1

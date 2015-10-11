@@ -1,0 +1,29 @@
+elasticsearch:
+  image: elasticsearch:latest
+  ports:
+    - "9200:9200"
+logstash:
+  image: logstash:latest
+  command: logstash -f /etc/logstash/conf.d/logstash.conf
+  volumes:
+    - ./logstash/:/etc/logstash/conf.d
+  ports:
+    - "5000:5000"
+  links:
+    - elasticsearch
+kibana:
+  build: kibana/
+  volumes:
+    - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml
+  ports:
+    - "8080:5601"
+  links:
+    - elasticsearch
+logspout:
+  build: logspout/
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+  environment:
+    - ROUTE_URIS=logstash://logstash:5000
+  links:
+    - logstash

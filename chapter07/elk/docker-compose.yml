@@ -2,6 +2,10 @@ elasticsearch:
   image: elasticsearch:latest
   ports:
     - "9200:9200"
+  volumes:
+    - ./elasticsearch/config/:/usr/share/elasticsearch/config  
+  environment:
+    - ES_USE_IPV4=x
 logstash:
   image: logstash:latest
   command: logstash -f /etc/logstash/conf.d/logstash.conf
